@@ -4,6 +4,8 @@ import (
 	"io/ioutil"
 	"strconv"
 	"strings"
+
+	"github.com/bountylabs/log"
 )
 
 type NetTCPSockets struct {
@@ -23,7 +25,6 @@ type NetTCPSocket struct {
 func ReadNetTCPSockets(path string, ip NetIPDecoder) (*NetTCPSockets, error) {
 
 	b, err := ioutil.ReadFile(path)
-
 	if err != nil {
 		return nil, err
 	}
@@ -39,6 +40,7 @@ func ReadNetTCPSockets(path string, ip NetIPDecoder) (*NetTCPSockets, error) {
 		f := strings.Fields(line)
 		s, err := parseNetSocket(f, ip)
 		if err != nil {
+			log.Errorln(err)
 			continue
 		}
 
