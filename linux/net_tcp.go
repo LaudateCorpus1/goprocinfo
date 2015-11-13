@@ -38,6 +38,10 @@ func ReadNetTCPSockets(path string, ip NetIPDecoder) (*NetTCPSockets, error) {
 		line := lines[i]
 
 		f := strings.Fields(line)
+		if len(f) < 11 {
+			continue
+		}
+
 		s, err := parseNetSocket(f, ip)
 		if err != nil {
 			log.Errorln(err)

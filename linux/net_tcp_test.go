@@ -12,6 +12,10 @@ func TestReadNetTCPCoreOs(t *testing.T) {
 		t.Fatal("net tcp read fail", err)
 	}
 
+	if len(tcp.Sockets) != 368 {
+		t.Fatalf("expected: 368 got:%d", len(tcp.Sockets))
+	}
+
 }
 
 func TestReadNetTCP(t *testing.T) {
