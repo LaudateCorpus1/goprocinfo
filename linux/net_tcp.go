@@ -37,20 +37,19 @@ func ReadNetTCPSockets(path string, ip NetIPDecoder) (*NetTCPSockets, error) {
 		line := lines[i]
 
 		f := strings.Fields(line)
-
-		if len(f) < 17 {
-			continue
-		}
-
 		s, err := parseNetSocket(f, ip)
-
 		if err != nil {
-			return nil, err
+			continue
 		}
 
 		var n int64
 		e := &NetTCPSocket{
 			NetSocket: *s,
+		}
+
+		if len(f) < 17 {
+			tcp.Sockets = append(tcp.Sockets, *e)
+			continue
 		}
 
 		if e.RetransmitTimeout, err = strconv.ParseUint(f[12], 10, 64); err != nil {
