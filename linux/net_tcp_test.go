@@ -5,6 +5,15 @@ import (
 	"testing"
 )
 
+func TestReadNetTCPCoreOs(t *testing.T) {
+
+	tcp, err := ReadNetTCPSockets("proc/coreos/net_tcp", NetIPv4Decoder)
+	if err != nil {
+		t.Fatal("net tcp read fail", err)
+	}
+
+}
+
 func TestReadNetTCP(t *testing.T) {
 
 	tcp, err := ReadNetTCPSockets("proc/net_tcp", NetIPv4Decoder)
